@@ -2,6 +2,8 @@ package com.example.articletest.controller;
 
 import com.example.articletest.domain.UserInfo;
 import com.example.articletest.mapper.UserMapper;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +26,13 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public UserInfo giveId_getUserInfo(@PathVariable int id){
-        return userMapper.giveId_getUserInfo(id);
+    public UserInfo getUserById(@PathVariable int id){
+//        return userMapper.giveId_getUserInfo(id);
+        return userMapper.getUserById(id);
+    }
+
+    @PostMapping("/update")
+    public void updateUserInfo(@RequestBody UserInfo userInfo){
+        userMapper.updateAccount(userInfo);
     }
 }

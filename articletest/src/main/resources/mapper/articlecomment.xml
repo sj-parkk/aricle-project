@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.articletest.mapper.UserMapper">
+
+    <!-- 로그인 -->
+    <select id="getUserById" parameterType="int" resultType="UserInfo">
+        SELECT
+            id as user_id,
+            password,
+            name,
+            createAt
+        FROM user_info
+        WHERE id = #{id};
+    </select>
+
+    <!-- 회원정보 수정 -->
+    <update id="updateAccount" parameterType="UserInfo">
+        update user_info set
+                            password = #{password}
+                            , name = #{name}
+                            , modifiedAt = sysdate()
+                where id = #{user_id}
+
+    </update>
+</mapper>

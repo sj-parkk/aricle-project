@@ -16,14 +16,17 @@ public interface UserMapper {
     //property와 column이 일치한다면 따로 작성하지 않아도된다.
     @Select("select * from user_info")
     @Results(id="CompanyMap",value={
-           @Result(property = "name",column = "user_name"),
-            @Result(property = "id",column="user_id")
+//           @Result(property = "name",column = "user_name") userinfo java객체 name과 user_info 테이블의 name 컬럼이 일치하므로 궂이 설정하지 않겠음
+            @Result(property = "user_id",column="id")// 현재는 UserInfo에도 user_id로 변경하였음
     })
     List<UserInfo> getAll();
 
-    @Select("select * from user_info where id=#{id}")
+    @Select("select * from user_info where id=#{user_id}")
     @ResultMap("CompanyMap")
     UserInfo giveId_getUserInfo(@Param("id")int id);
 
+    @ResultMap("CompanyMap")
+    UserInfo getUserById(int id);
 
+    void updateAccount(UserInfo userInfo);
 }
