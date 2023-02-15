@@ -29,4 +29,6 @@ public interface UserMapper {
     UserInfo getUserById(int id);
 
     void updateAccount(UserInfo userInfo);
+
+    void insertAccount(UserInfo userInfo);
 }

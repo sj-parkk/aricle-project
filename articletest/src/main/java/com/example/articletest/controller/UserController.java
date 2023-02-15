@@ -35,4 +35,8 @@ public class UserController {
     public void updateUserInfo(@RequestBody UserInfo userInfo){
         userMapper.updateAccount(userInfo);
     }
+
+    @PostMapping("/SignUp")
+    public void insertUserInfo(@RequestBody UserInfo userInfo) {userMapper.insertAccount(userInfo);}
+
 }

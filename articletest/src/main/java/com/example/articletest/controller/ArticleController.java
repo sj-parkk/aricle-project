@@ -1,9 +1,12 @@
 package com.example.articletest.controller;
 
+import com.example.articletest.domain.ArticleCommentInfo;
 import com.example.articletest.domain.ArticleInfo;
 import com.example.articletest.mapper.ArticleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -14,12 +17,32 @@ public class ArticleController {
     ArticleMapper articleMapper;
 
     @PostMapping("")
-    public int makeArticle(@RequestBody ArticleInfo articleInfo){return articleMapper.makeArticle(articleInfo); }
-    @GetMapping("")
-    public List<ArticleInfo> getArticles(){return articleMapper.getArticles();}
+    public void makeArticle(@RequestBody ArticleInfo articleInfo){
 
-    @GetMapping("/{id}")
-    public ArticleInfo getArticle(@PathVariable int id){return articleMapper.getArticle(id);}
+    }
+    @GetMapping("")
+    public ModelAndView getArticles(){
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("Articlelist");
+        mav.addObject("Articles",articleMapper.getArticles());
+        return mav;
+    }
+
+    @GetMapping({"detail","detail?id={id}"})
+    public ModelAndView getArticle(@RequestParam int id){
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("ArticleDetail");
+        mav.addObject("ArticleDetail",articleMapper.getArticle(id));
+        return mav;
+    }
+
+    @PostMapping("/insert")
+    void insertArticleComments(@RequestBody ArticleInfo articleInfo ){
+        articleMapper.makeArticle(articleInfo);
+    }
+
+
+
 
 
 }

@@ -1,0 +1,11 @@
+@font-face { /* 애플산돌고딕 폰트 적용 */
+    font-family: "OpenSans";
+    src: url("../font/OpenSans-Light.ttf") format("truetype");
+    font-weight: normal;
+} /* 이후 "SDGothic"으로 폰트 적용 가능 */
+
+body{
+    font-family: 'OpenSans', sans-serif;
+}
+
+

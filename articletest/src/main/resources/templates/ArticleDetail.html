@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+    <link href="blog.css" rel="stylesheet">
+<!--    <link rel="preconnect" href="https://fonts.googleapis.com">-->
+<!--    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>-->
+<!--    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">-->
+    <link rel="stylesheet" href="../css/master.css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.3.min.js"></script>
+
+    <title>게시글 조회</title>
+</head>
+
+<script>
+    function CommentbuttonClick(){
+
+        var articleCommentInfo = {
+            "user_id":3,
+            "article_id":2,
+            "comment_id":1,
+            "comment":"comment"
+        }
+        $.ajax({
+            type: "post",
+            url : "http://localhost:8081/ArticleComment/insert",
+            headers: {'Content-Type': 'application/json'},
+            ///보낼 데이터를 JSON.stringify()로 감싸주어야 함
+            data : JSON.stringify(articleCommentInfo),
+            success : function (data){
+                console.log(data);
+            },
+            error : function(e){
+            }
+        })
+    }
+</script>
+<body>
+
+<div class="container">
+    <div th:replace="common/header :: header"></div>
+    <div th:replace="common/nav :: nav"></div>
+
+    <div>게시글 상세 조회</div>
+    <div>
+    제목 : <h1 th:text="${ArticleDetail.title}"></h1>
+    </div>
+    <div>
+    내용 : <p><textarea th:value="${ArticleDetail.content}" th:text="${ArticleDetail.content}" readonly></textarea></p>
+    </div>
+    <table class="table table-striped">
+        <thead>
+        <th>유저</th>
+        <th>내용</th>
+        <th>작성일자</th>
+        </thead>
+        <tbody>
+        <tr th:each="a:${ArticleDetail.getArticleCommentList()}">
+            <td th:text="${a.user_id}"></td>
+            <td th:text="${a.comment}"></td>
+            <td th:text="${a.createAt}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    댓글 : <textarea id="content" ></textarea> <button value="댓글등록" onclick="CommentbuttonClick()" ></button>
+
+</div>
+</body>
+</html>

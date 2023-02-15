@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+    <link href="blog.css" rel="stylesheet">
+<!--    <link rel="preconnect" href="https://fonts.googleapis.com">-->
+<!--    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>-->
+<!--    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">-->
+    <link rel="stylesheet" href="../css/master.css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.3.min.js"></script>
+
+    <title>게시글 조회</title>
+</head>
+
+<script>
+    function SignUpClick(){
+        var user_id = $("#userid").val();
+        var password = $("#password").val();
+        var email = $("#email").val();
+        var name = $("#name").val();
+        var userInfo = {
+            "user_id":user_id,
+            "password":password,
+            "name":name,
+            "email":email
+        }
+        $.ajax({
+            type: "post",
+            url : "http://localhost:8081/User/SignUp",
+            headers: {'Content-Type': 'application/json'},
+            ///보낼 데이터를 JSON.stringify()로 감싸주어야 함
+            data : JSON.stringify(userInfo),
+            success : function (data){
+                alert("회원가입이 성공적으로 완료되었습니다.");
+                location.reload();
+            },
+            error : function(e){
+            }
+        })
+    }
+</script>
+<body>
+
+<div class="container">
+    <div th:replace="common/header :: header"></div>
+    <div th:replace="common/nav :: nav"></div>
+
+    <div>회원가입</div>
+
+    <div>
+    ID : <input id="userid" type="text">
+    </div>
+    <div>
+        NAME : <input id="name" type="text">
+    </div>
+    <div>
+        PASSWORD : <input id="password" type="password">
+    </div>
+    <div>
+        EMAIL : <input id="email" type="text">
+    </div>
+    <p>
+        <button onclick="SignUpClick()">회원가입</button>
+    </p>
+
+
+</div>
+</body>
+</html>

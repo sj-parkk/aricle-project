@@ -24,15 +24,11 @@ public interface ArticleMapper {
     List<ArticleInfo> getArticles();
 
     @Insert("insert into article (user_id,title,content,createAt) values(#{Article.user_id},#{Article.title},#{Article.content},sysdate())")
-    int makeArticle(@Param("Article") ArticleInfo articleInfo);
+    void makeArticle(@Param("Article") ArticleInfo articleInfo);
 
     @GetMapping("/{id}")
     @ResultMap("articleMap")
     @Select("select * from article where id=#{ArticleNum}")
     ArticleInfo getArticle(@Param("ArticleNum")int ArticleNum);
-
-
-
-
 
 }

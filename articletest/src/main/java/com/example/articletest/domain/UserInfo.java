@@ -9,9 +9,11 @@ import java.util.Date;
 @Getter
 @Setter
 public class UserInfo {
-    private int user_id;
+    private String user_id;
     private String password;
     private String name;
+
+    private String email;
     private String createBy;
     private Date createAt;
 
