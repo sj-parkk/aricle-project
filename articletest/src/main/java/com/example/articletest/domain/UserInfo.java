@@ -14,6 +14,7 @@ public class UserInfo {
     private String name;
 
     private String email;
+    private String role;
     private String createBy;
     private Date createAt;
 
