@@ -17,14 +17,17 @@
     <title>게시글 조회</title>
 </head>
 
-<script>
-    function CommentbuttonClick(){
+<script th:inline="javascript">
+    function CommentButtonClick(){
+        const user = [[${session.loginMember.user_id}]];
 
+        const urlParams = new URL(location.href).searchParams;
+        const article_id = urlParams.get('id');
+        const comment = $("#content").val();
         var articleCommentInfo = {
-            "user_id":3,
-            "article_id":2,
-            "comment_id":1,
-            "comment":"comment"
+            "user_id":user,
+            "article_id":article_id,
+            "comment":comment
         }
         $.ajax({
             type: "post",
@@ -68,7 +71,7 @@
         </tbody>
     </table>
 
-    댓글 : <textarea id="content" ></textarea> <button value="댓글등록" onclick="CommentbuttonClick()" ></button>
+    댓글 : <textarea id="content" ></textarea> <button  onclick="CommentButtonClick()" th:text="댓글등록" ></button>
 
 </div>
 </body>

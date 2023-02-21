@@ -5,9 +5,9 @@
 
     <insert id="insertArticleComment" parameterType="ArticleCommentInfo">
         insert into articleComment (user_id,article_id,comment,createAt)
-        values(#{commentinfo.user_id}
-        ,#{commentinfo.article_id}
-        ,#{commentinfo.comment}
+        values(#{CommentInfo.user_id}
+        ,#{CommentInfo.article_id}
+        ,#{CommentInfo.comment}
         ,sysdate())
     </insert>
 </mapper>

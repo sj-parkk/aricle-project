@@ -1,14 +1,14 @@
 package com.example.articletest.controller;
 
+import com.example.articletest.domain.RoleEnum;
+import com.example.articletest.domain.UserInfo;
 import com.example.articletest.mapper.UserMapper;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class CentralController {
@@ -35,8 +35,24 @@ public class CentralController {
     }
 
     @GetMapping("/Admin")
-    public String AdminForm(Model model){
+    public String AdminForm(Model model, HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+        if(session == null){
+            return "redirect:/Article";
+        }
+        UserInfo userInfo = (UserInfo) session.getAttribute("loginMember");
+        String role = userInfo.getRole();
+        if(
+                role == null ||
+                role.length() == 0 ||
+                role.equals(RoleEnum.USER.name())
+        )
+        {
+            return "redirect:/Article";
+        }
+        session.getAttribute("loginMember");
         model.addAttribute("UserList",mapper.getAll());
+
         return "Admin";
     }
 

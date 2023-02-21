@@ -1,10 +1,10 @@
 package com.example.articletest.controller;
 
-import com.example.articletest.domain.ArticleCommentInfo;
 import com.example.articletest.domain.ArticleInfo;
+import com.example.articletest.domain.ArticlesPageVO;
 import com.example.articletest.mapper.ArticleMapper;
+import com.example.articletest.service.PageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -16,15 +16,22 @@ public class ArticleController {
     @Autowired
     ArticleMapper articleMapper;
 
+    @Autowired
+    PageService pageService;
+
     @PostMapping("")
     public void makeArticle(@RequestBody ArticleInfo articleInfo){
 
     }
-    @GetMapping("")
-    public ModelAndView getArticles(){
+    @GetMapping({"/list","list?pageGroup={pageGroup}"})
+    public ModelAndView getArticles(@RequestParam int pageGroup){
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("Articlelist");
-        mav.addObject("Articles",articleMapper.getArticles());
+
+        List<ArticleInfo> PageArticles = pageService.pagingMethod(articleMapper.getArticles(),pageGroup);
+
+        mav.setViewName("ArticleList");
+        mav.addObject("PageArticle",PageArticles);
+
         return mav;
     }
 

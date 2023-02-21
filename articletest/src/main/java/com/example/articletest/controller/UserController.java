@@ -6,9 +6,9 @@ import com.example.articletest.mapper.UserMapper;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+
 
 import java.util.List;
 
@@ -19,8 +19,7 @@ public class UserController {
     @Autowired
     private UserMapper userMapper;
 
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
     @PostMapping("")
     public int post(@RequestBody UserInfo user){
@@ -46,8 +45,8 @@ public class UserController {
     @PostMapping("/SignUp")
     public void insertUserInfo(@RequestBody UserInfo userInfo) {
         String rawPassword = userInfo.getPassword();
-        String encPassword = bCryptPasswordEncoder.encode(rawPassword);
-        userInfo.setPassword(encPassword);
+
+        userInfo.setPassword(rawPassword);
         userInfo.setRole(userInfo.getRole());
         userMapper.insertAccount(userInfo);
     }

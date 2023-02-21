@@ -1,6 +1,7 @@
 package com.example.articletest.controller;
 
 import com.example.articletest.domain.ArticleCommentInfo;
+import com.example.articletest.domain.ArticleCommentVO;
 import com.example.articletest.mapper.ArticleCommentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class ArticleCommentController {
     public List<ArticleCommentInfo> getByArticleId(@PathVariable int id){return articleCommentMapper.getByArticleId(id);}
 
     @PostMapping("/insert")
-    ModelAndView insertArticleComments(@RequestBody ArticleCommentInfo articleCommentInfo ){
+    ModelAndView insertArticleComments(@RequestBody ArticleCommentVO articleCommentInfo ){
         articleCommentMapper.insertArticleComment(articleCommentInfo);
         ModelAndView modelAndView = new ModelAndView();
         //다른컨트롤러 이동할때는 viewName 셋팅하는 쪽에 redirect: 붙여주자

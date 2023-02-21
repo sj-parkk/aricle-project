@@ -2,7 +2,7 @@ package com.example.articletest.mapper;
 
 import com.example.articletest.domain.UserInfo;
 import org.apache.ibatis.annotations.*;
-import org.springframework.security.access.prepost.PreAuthorize;
+
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
@@ -15,7 +15,7 @@ public interface UserMapper {
 
     //id를 통해 재사용 가능
     //property와 column이 일치한다면 따로 작성하지 않아도된다.
-    @PreAuthorize("hasRole('ADMIN')")
+
     @Select("select * from user_info")
     @Results(id="CompanyMap",value={
 //           @Result(property = "name",column = "user_name") userinfo java객체 name과 user_info 테이블의 name 컬럼이 일치하므로 궂이 설정하지 않겠음

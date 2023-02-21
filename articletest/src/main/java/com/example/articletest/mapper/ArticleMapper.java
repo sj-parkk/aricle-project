@@ -15,7 +15,7 @@ public interface ArticleMapper {
     ArticleInfo giveUserInfo_getArticles();
 
     //서브쿼리를 사용해서 articleCommentList를 넣어줌
-    @Select("select * from article")
+    @Select("select * from article order by createAt")
     @Results(id="articleMap", value= {
             @Result(property = "article_id", column = "id"),
             @Result(property = "articleCommentList",column="id",many=@Many(select="com.example.articletest.mapper.ArticleCommentMapper.getByArticleId"))

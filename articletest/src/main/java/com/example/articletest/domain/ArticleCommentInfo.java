@@ -1,6 +1,6 @@
 package com.example.articletest.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+//import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.util.Date;
@@ -9,7 +9,7 @@ import java.util.Date;
 public class ArticleCommentInfo {
     private long comment_id;
     private long article_id;
-    private long user_id;
+    private String user_id;
     private String comment;
 
     private Date createAt;
