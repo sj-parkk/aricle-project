@@ -16,7 +16,7 @@ public class CentralController {
     @GetMapping("")
     public String home(Model model){
         model.addAttribute("data","comehere");
-        return "Article";
+        return "index";
     }
 
     @GetMapping("/ArticleWrite")

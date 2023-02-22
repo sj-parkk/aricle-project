@@ -1,45 +1,39 @@
 <!doctype html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
 
-    <link rel="stylesheet" href="../css/master.css">
-    <title>게시글 조회</title>
-</head>
-<body>
+<th:block layout:fragment="content">
+    <div class="container-fluid">
+        <div>게시글 조회</div>
 
-<div class="container">
-    <div th:replace="common/header :: header"></div>
-    <div th:replace="common/nav :: nav"></div>
+            <table class="table table-striped">
+                        <thead>
+                            <th>유저</th>
+                            <th>제목</th>
+                            <th>내용</th>
+                            <th>작성일자</th>
+                        </thead>
+                <tbody>
+                    <tr th:each="a:${PageArticle}">
+                        <td th:text="${a.user_id}"></td>
+                        <td>
+                            <a th:href="@{/Article/detail(id=${a.article_id})}" th:text="${a.title}" target="_self" />
+                        </td>
+                        <td th:text="${a.content}"></td>
+                        <td th:text="${a.createAt}"></td>
+                    </tr>
+                </tbody>
+            </table>
 
-    <div>게시글 조회</div>
-    <table class="table table-striped">
-<!--        <thead>-->
-<!--            <th>유저</th>-->
-<!--            <th>제목</th>-->
-<!--            <th>내용</th>-->
-<!--            <th>작성일자</th>-->
-<!--        </thead>-->
-        <tbody>
-            <tr th:each="a:${PageArticle}">
-                <td th:text="${a.user_id}"></td>
-                <td>
-                    <a th:href="@{/Article/detail(id=${a.article_id})}" th:text="${a.title}" target="_self" />
-                </td>
-                <td th:text="${a.content}"></td>
-                <td th:text="${a.createAt}"></td>
-            </tr>
-        </tbody>
-    </table>
-    <em th:each="num:${#numbers.sequence(1,PageArticle[0].maxPageGroup)}">
-        <a th:href="@{/Article/list(pageGroup=${num})}" th:text="${num}"></a>
-
-    </em>
-</div>
-</body>
+            <em th:each="num:${#numbers.sequence(1,PageArticle[0].maxPageGroup)}">
+                <a th:href="@{/Article/list(pageGroup=${num})}" th:text="${num}"></a>
+            </em>
+    </div>
+</th:block>
 </html>
+
+
+

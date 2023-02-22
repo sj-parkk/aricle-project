@@ -1,64 +1,52 @@
 <!doctype html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
 <head>
+    <script>
+        function ArticleButtonClick(){
+            var title = $("#title").val();
+            var content = $("#content").val();
+            var articleInfo = {
+                "user_id":3,
+                "title":title,
+                "content":content
+            }
+            $.ajax({
+                type: "post",
+                url : "http://localhost:8081/Article/insert",
+                headers: {'Content-Type': 'application/json'},
+                ///보낼 데이터를 JSON.stringify()로 감싸주어야 함
+                data : JSON.stringify(articleInfo),
+                success : function (data){
+                    alert("게시되었습니다");
+                    location.reload();
+                },
+                error : function(e){
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
-    <link href="blog.css" rel="stylesheet">
-<!--    <link rel="preconnect" href="https://fonts.googleapis.com">-->
-<!--    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>-->
-<!--    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">-->
-    <link rel="stylesheet" href="../css/master.css">
-    <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.3.min.js"></script>
-
-    <title>게시글 조회</title>
+                }
+            })
+        }
+    </script>
 </head>
 
-<script>
-    function ArticlebuttonClick(){
-        var title = $("#title").val();
-        var content = $("#content").val();
-        var articleInfo = {
-            "user_id":3,
-            "title":title,
-            "content":content
-        }
-        $.ajax({
-            type: "post",
-            url : "http://localhost:8081/Article/insert",
-            headers: {'Content-Type': 'application/json'},
-            ///보낼 데이터를 JSON.stringify()로 감싸주어야 함
-            data : JSON.stringify(articleInfo),
-            success : function (data){
-                alert("게시되었습니다");
-                location.reload();
-            },
-            error : function(e){
+<th:block layout:fragment="content">
 
-            }
-        })
-    }
-</script>
-<body>
+        <div>게시글 작성</div>
+        <div>
+            제목 : <input id="title" type="text">
+        </div>
+        <div>
+            내용 : <p><textarea id="content"></textarea></p>
+        </div>
+        <p>
+            <button onclick="ArticleButtonClick()">게시</button>
+        </p>
 
-<div class="container">
-    <div th:replace="common/header :: header"></div>
-    <div th:replace="common/nav :: nav"></div>
 
-    <div>게시글 작성</div>
-    <div>
-    제목 : <input id="title" type="text">
-    </div>
-    <div>
-    내용 : <p><textarea id="content"></textarea></p>
-    </div>
-    <p>
-        <button onclick="ArticlebuttonClick()">게시</button>
-    </p>
-
-</div>
-</body>
+</th:block>
 </html>
+
+
+
