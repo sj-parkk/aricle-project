@@ -5,7 +5,7 @@
 
 
 
-<th:block layout:fragment="content">
+<div layout:fragment="content">
     <div class="container-fluid">
         <div>게시글 조회</div>
 
@@ -27,10 +27,11 @@
                     </tr>
                 </tbody>
             </table>
-
+            <div style="text-align:center">
             <em th:each="num:${#numbers.sequence(1,PageArticle[0].maxPageGroup)}">
                 <a th:href="@{/Article/list(pageGroup=${num})}" th:text="${num}"></a>
             </em>
+            </div>
     </div>
 </th:block>
 </html>

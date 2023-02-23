@@ -38,7 +38,7 @@ public class CentralController {
     public String AdminForm(Model model, HttpServletRequest request){
         HttpSession session = request.getSession(false);
         if(session == null){
-            return "redirect:/Article";
+            return "redirect:/Article/list?pageGroup=1";
         }
         UserInfo userInfo = (UserInfo) session.getAttribute("loginMember");
         String role = userInfo.getRole();
@@ -48,12 +48,16 @@ public class CentralController {
                 role.equals(RoleEnum.USER.name())
         )
         {
-            return "redirect:/Article";
+            return "redirect:/Article/list?pageGroup=1";
         }
         session.getAttribute("loginMember");
         model.addAttribute("UserList",mapper.getAll());
 
         return "Admin";
+    }
+    @GetMapping("/alert")
+    public String alertForm(){
+        return "alert";
     }
 
 

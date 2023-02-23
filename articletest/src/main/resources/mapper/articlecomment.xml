@@ -10,4 +10,14 @@
         ,#{CommentInfo.comment}
         ,sysdate())
     </insert>
+
+    <insert id="insertChildComment" parameterType="ArticleCommentVO">
+        insert into articleComment (id,child_id,user_id,article_id,comment,createAt)
+        values (#{ChildInfo.id},
+                #{ChildInfo.child_id},
+                #{ChildInfo.user_id},
+                #{ChildInfo.article_id},
+                #{ChildInfo.comment},
+                sysdate())
+    </insert>
 </mapper>

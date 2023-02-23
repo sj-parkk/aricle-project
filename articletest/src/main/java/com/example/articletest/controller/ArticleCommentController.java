@@ -26,4 +26,16 @@ public class ArticleCommentController {
         modelAndView.setViewName("redirect:/Article/detail?id="+articleCommentInfo.getArticle_id());
         return modelAndView;
     }
+
+    @PostMapping("/delete")
+    public void deleteByCommentId(@RequestParam(defaultValue ="1") int comment_id)
+    {
+        articleCommentMapper.deleteCommentId(comment_id);
+    }
+
+    @PostMapping("/childInsert")
+    void insertChildComments(@RequestBody ArticleCommentVO articleCommentVO){
+        articleCommentMapper.insertChildComment(articleCommentVO);
+    }
+
 }
