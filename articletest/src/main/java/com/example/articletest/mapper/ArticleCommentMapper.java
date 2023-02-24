@@ -21,5 +21,6 @@ public interface ArticleCommentMapper {
     @Delete("delete from articleComment where id=#{comment_id}")
     void deleteCommentId(int id);
 
+    @ResultMap("ArticleCommentMapper")
     void insertChildComment(@Param("ChildInfo")ArticleCommentVO articleCommentVO);
 }

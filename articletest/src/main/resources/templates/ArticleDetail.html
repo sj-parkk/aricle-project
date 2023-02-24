@@ -30,17 +30,22 @@
             }
         })
     }
-    function ChildCommentClick(child_id,comment_id){
+    function ChildCommentClick(comment_id,child_id){
         const user = [[${session.loginMember.user_id}]];
+        var co_id = comment_id;
+        var ch_id = Number(child_id)+1;
+        const x = 'c'+comment_id;
+        var child_comment = $("#"+x).val();
 
-        const urlParams = new URL(location.href).searchParams;
-        const article_id = urlParams.get('id');
+
+        const article_id = new URL(location.href).searchParams.get('id')
         const comment = $("#child_description").val();
         var articleCommentInfo = {
             "article_id":article_id,
-            "comment_id":comment_id,
-            "child_id":child_id,
-            "comment":comment,
+            "id":comment_id,
+            "child_id":ch_id,
+            "comment":child_comment,
+            "user_id":user
 
         }
         $.ajax({
@@ -75,7 +80,12 @@
 
     function childCommentVisibility(word){
         var a = document.getElementById(word);
-        a.style.visibility = 'visible'
+        if(a.style.display=''){
+            a.style.display = 'none'
+        }else{
+            a.style.display = ''
+        }
+
     }
 </script>
 </head>
@@ -94,26 +104,27 @@
 
         <tbody>
         <tr th:each="a:${ArticleDetail.getArticleCommentList()}">
-
+            <td>
             <em th:text="${a.user_id}"></em>
             <em th:text="${a.comment}">
             </em>
-            <em th:text="${a.createAt}"></em>
+<!--            <em th:text="${a.createAt}"></em>-->
             <em>
                 <button th:text="답글작성"
                         th:attr="onclick=|childCommentVisibility('childComment${a.comment_id}')|">
                 </button>
 
 
-                <div th:id="'childComment'+${a.comment_id}" style="visibility:hidden">
-                    <textarea th:id="'c'+${a.child_id}"></textarea>
+                <em th:id="'childComment'+${a.comment_id}" style="display:none">
+                    <textarea th:id="'c'+${a.comment_id}"></textarea>
                     <!--코멘트,자식값만 알고있으면된다.-->
                     <button class="accordion-button"
                             th:text="등록"
-
-                            th:onclick="ChildCommentClick()">
+                            th:data-id="${a.comment_id}"
+                            th:data-idd="${a.child_id}"
+                            onclick="ChildCommentClick(this.getAttribute('data-id'),this.getAttribute('data-idd'))">
                     </button>
-                </div>
+                </em>
             </em>
             <em>
                 <!--본인댓글 또는 관리자는 삭제가능-->
@@ -123,11 +134,23 @@
                         th:onclick="CommentDeleteClick(this.getAttribute('CommentId'))"></button>
                 </th:block>
             </em>
+            </td>
         </tr>
         </tbody>
     </table>
-    <label for="description">댓글</label>
-    <textarea id="description" rows="5" placeholder="댓글을 입력해주세요" ></textarea> <button  onclick="CommentButtonClick()" th:text="댓글등록" ></button>
+    <table class="table table-striped">
+        <tr>
+            <td>
+                <label for="description">댓글</label>
+            </td>
+            <td>
+                <textarea id="description" rows="3" placeholder="댓글을 입력해주세요" ></textarea>
+            </td>
+            <td>
+                 <button  onclick="CommentButtonClick()" th:text="댓글등록" ></button>
+            </td>
+        </tr>
+    </table>
 
 </div>
 </th:block>
