@@ -20,4 +20,23 @@
                 #{ChildInfo.comment},
                 sysdate())
     </insert>
+
+    <insert id="procedureTest" statementType="CALLABLE" parameterType="ArticleCommentVO">
+        {call CommentInsertTest(
+                #{ChildInfo.id},
+                #{ChildInfo.article_id},
+                #{ChildInfo.child_id},
+                #{ChildInfo.user_id},
+                #{ChildInfo.comment}
+            )
+        }
+    </insert>
+
+    <delete id="deleteCommentId" parameterType="ArticleCommentChildVO">
+        delete from articleComment where id=#{CommentInfo.comment_id}
+    </delete>
+
+    <delete id="deleteCommentIdAndChild" parameterType="ArticleCommentChildVO">
+        delete from articleComment where id=#{CommentInfo.comment_id} and child_id=#{CommentInfo.child_id}
+    </delete>
 </mapper>

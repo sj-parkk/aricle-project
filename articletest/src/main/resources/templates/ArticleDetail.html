@@ -32,7 +32,7 @@
     }
     function ChildCommentClick(comment_id,child_id){
         const user = [[${session.loginMember.user_id}]];
-        var co_id = comment_id;
+        var co_id = Number(comment_id);
         var ch_id = Number(child_id)+1;
         const x = 'c'+comment_id;
         var child_comment = $("#"+x).val();
@@ -41,11 +41,12 @@
         const article_id = new URL(location.href).searchParams.get('id')
         const comment = $("#child_description").val();
         var articleCommentInfo = {
-            "article_id":article_id,
-            "id":comment_id,
+            "id":co_id,
+            "article_id":Number(article_id),
             "child_id":ch_id,
             "comment":child_comment,
             "user_id":user
+
 
         }
         $.ajax({
@@ -62,14 +63,18 @@
         })
     }
 
-    function CommentDeleteClick(id){
+    function CommentDeleteClick(id,child_id){
 
+        var deleteInfo = {
+            "comment_id":Number(id),
+            "child_id":Number(child_id)
+        };
         $.ajax({
             type: "POST",
             url : "http://localhost:8081/ArticleComment/delete",
-            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+            contentType: "application/json",
             ///보낼 데이터를 JSON.stringify()로 감싸주어야 함
-            data : {comment_id:id},
+            data : JSON.stringify(deleteInfo),
             success : function (data){
                 location.reload();
             },
@@ -104,36 +109,52 @@
 
         <tbody>
         <tr th:each="a:${ArticleDetail.getArticleCommentList()}">
+
+            <td th:text="${a.child_id>1}?${'ㄴ'}:${''}">
+            </td>
+
             <td>
-            <em th:text="${a.user_id}"></em>
-            <em th:text="${a.comment}">
-            </em>
-<!--            <em th:text="${a.createAt}"></em>-->
-            <em>
+                <label for="userid">ID</label>
+            <em id="userid" th:text="${a.user_id}"></em>
+            </td>
+            <td>
+                <em th:text="${a.comment}"></em>
+            </td>
+            <td>
+
                 <button th:text="답글작성"
                         th:attr="onclick=|childCommentVisibility('childComment${a.comment_id}')|">
                 </button>
 
+                <em>
 
-                <em th:id="'childComment'+${a.comment_id}" style="display:none">
-                    <textarea th:id="'c'+${a.comment_id}"></textarea>
-                    <!--코멘트,자식값만 알고있으면된다.-->
-                    <button class="accordion-button"
-                            th:text="등록"
-                            th:data-id="${a.comment_id}"
-                            th:data-idd="${a.child_id}"
-                            onclick="ChildCommentClick(this.getAttribute('data-id'),this.getAttribute('data-idd'))">
-                    </button>
+
+
+                    <em th:id="'childComment'+${a.comment_id}" style="display:none">
+                        <textarea th:id="'c'+${a.comment_id}"></textarea>
+                        <!--코멘트,자식값만 알고있으면된다.-->
+                        <button class="accordion-button"
+                                th:text="등록"
+                                th:data-id="${a.comment_id}"
+                                th:data-idd="${a.child_id}"
+                                onclick="ChildCommentClick(this.getAttribute('data-id'),this.getAttribute('data-idd'))">
+                        </button>
+                    </em>
                 </em>
-            </em>
-            <em>
-                <!--본인댓글 또는 관리자는 삭제가능-->
-                <th:block th:if="${session.loginMember.user_id == a.user_id || session.loginMember.role == 'ADMIN'}">
-                <button class="accordion-button" th:text="삭제"
-                        th:CommentId="${a.comment_id}"
-                        th:onclick="CommentDeleteClick(this.getAttribute('CommentId'))"></button>
-                </th:block>
-            </em>
+            </td>
+
+<!--            <em th:text="${a.createAt}"></em>-->
+            <td>
+
+                <em>
+                    <!--본인댓글 또는 관리자는 삭제가능-->
+                    <th:block th:if="${session.loginMember.user_id == a.user_id || session.loginMember.role == 'ADMIN'}">
+                    <button class="accordion-button" th:text="삭제"
+                            th:CommentId="${a.comment_id}"
+                            th:ChildId="${a.child_id}"
+                            onclick="CommentDeleteClick(this.getAttribute('CommentId'),this.getAttribute('ChildId'))"></button>
+                    </th:block>
+                </em>
             </td>
         </tr>
         </tbody>

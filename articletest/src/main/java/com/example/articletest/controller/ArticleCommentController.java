@@ -1,5 +1,6 @@
 package com.example.articletest.controller;
 
+import com.example.articletest.domain.ArticleCommentChildVO;
 import com.example.articletest.domain.ArticleCommentInfo;
 import com.example.articletest.domain.ArticleCommentVO;
 import com.example.articletest.mapper.ArticleCommentMapper;
@@ -28,14 +29,20 @@ public class ArticleCommentController {
     }
 
     @PostMapping("/delete")
-    public void deleteByCommentId(@RequestParam(defaultValue ="1") int comment_id)
+    public void deleteByCommentId(@RequestBody ArticleCommentChildVO vo)
     {
-        articleCommentMapper.deleteCommentId(comment_id);
+        if(vo.getChild_id()==1){
+            articleCommentMapper.deleteCommentId(vo);
+        }else{
+            articleCommentMapper.deleteCommentIdAndChild(vo);
+        }
+
     }
 
     @PostMapping("/childInsert")
-    void insertChildComments(@RequestBody ArticleCommentVO articleCommentVO){
-        articleCommentMapper.insertChildComment(articleCommentVO);
+    void procedureTest(@RequestBody ArticleCommentVO articleCommentVO){
+        articleCommentMapper.procedureTest(articleCommentVO);
     }
+
 
 }
