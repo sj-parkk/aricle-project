@@ -8,6 +8,7 @@
                 <div class="col-4 pt-1" >
                     <em th:text="${session.loginMember==null}?${''}:'안녕하세요' + ${session.loginMember.user_id} + '님'" >
                     </em>
+                    <a th:if="${session.loginMember!= null}" class="p-2 text-muted" href="http://localhost:8081/User/MyInfo" >MyInfo</a>
                     <div>
                         <a class="text-muted" th:href="${session.loginMember==null}?${'/LoginForm'}:${'/LogOut'}" th:text="${session.loginMember==null}?${'로그인'}:${'로그아웃'}"></a>
                     </div>

@@ -41,7 +41,7 @@
         const article_id = new URL(location.href).searchParams.get('id')
         const comment = $("#child_description").val();
         var articleCommentInfo = {
-            "id":co_id,
+            "comment_id":co_id,
             "article_id":Number(article_id),
             "child_id":ch_id,
             "comment":child_comment,

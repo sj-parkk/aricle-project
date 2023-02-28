@@ -25,21 +25,25 @@ public class CertificationController {
 
     @PostMapping("/emailConfirm")
     @ResponseBody
-    public void emailConfirm(@RequestBody CertificationVO vo, HttpServletRequest request){
+    public String emailConfirm(@RequestBody CertificationVO vo, HttpServletRequest request){
+        UserInfo info = mapper.getUserByIdAndEmail(vo);
+        if(Objects.isNull(info)){
+            return "false";
+        };
         mapper.insertAuthentic(vo);
         certificationSerivce.sendCertEmail(vo);
         HttpSession session = request.getSession();
         session.setAttribute(SessionContants.Certification,vo);
         session.setMaxInactiveInterval(300);
 
-
+        return "true";
     }
 
     @GetMapping("/findPW")
     public String findPW(){
         return "/FindMyPW";
     }
-    
+
 
     @PostMapping("/certPW")
     @ResponseBody

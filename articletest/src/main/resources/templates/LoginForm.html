@@ -2,8 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
+<head>
+    <script>
+        function findPassword(){
+            location.href="/Certification/findPW";
+        }
 
-
+    </script>
+</head>
 
 <th:block layout:fragment="content">
     <div class="container-fluid">
@@ -15,7 +21,7 @@
                 <em>로그인</em>
                 <form method="post" action="/login">
                     <div>
-                        <input id="username" name="userid" placeholder="ID" type="text">
+                        <input id="username" name="user_id" placeholder="ID" type="text">
                     </div>
                     <div>
                         <input id="password" placeholder="PW" name="password" type="password">
@@ -24,6 +30,7 @@
                         <button type="submit">로그인</button>
                     </p>
                 </form>
+                <button type="button" onclick="findPassword()">비밀번호 찾기</button>
 
 
             </div>

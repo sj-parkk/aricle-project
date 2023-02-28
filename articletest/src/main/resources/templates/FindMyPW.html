@@ -1,0 +1,81 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <script>
+        function emailSend(){
+                $("#authentic").css("visibility","visible");
+
+                var email = $("#email").val();
+                var id = $("#userId").val();
+                var userInfo = {
+                    "user_id":id,
+                    "email":email
+                }
+                $.ajax({
+                    type: "post",
+                    url : "http://localhost:8081/Certification/emailConfirm",
+                    headers: {'Content-Type': 'application/json'},
+                    ///보낼 데이터를 JSON.stringify()로 감싸주어야 함
+                    data : JSON.stringify(userInfo),
+                    success : function (data){
+                        alert("인증번호가 발송되었습니다.")
+                    },
+                    error : function(e){
+                    }
+                })
+
+
+        }
+
+        function Certificate(){
+            var auth = $("#auth").val();
+            var certInfo = {
+                "auth":auth
+            }
+            $.ajax({
+                type: "post",
+                url : "http://localhost:8081/Certification/certPW",
+                headers: {'Content-Type': 'application/json'},
+                ///보낼 데이터를 JSON.stringify()로 감싸주어야 함
+                data : JSON.stringify(certInfo),
+                success : function (data){
+                    let result = data.toLocaleString()
+                    if(result==="true"){
+                        location.href='/LoginForm';
+                    }else{
+                        alert('인증번호가 일치하지 않습니다.')
+                    }
+                },
+                error : function(e){
+                }
+            })
+
+
+        }
+
+    </script>
+</head>
+
+<th:block layout:fragment="content">
+    <div class="container-fluid">
+        <h1>비밀번호 찾기</h1>
+            <div>
+                <input id="userId" placeholder="아이디를 입력하세요" type="text">
+            </div>
+            <div>
+                <input id="email"  placeholder="이메일을 입력하세요" type="text">
+                <button id="emailClick" onclick="emailSend()">인증번호 발송</button>
+            </div>
+            <div id="authentic" style="visibility:hidden">
+                <input id="auth" placeholder="인증번호를 입력하세요"  type="text">
+                <button id="cert" onclick="Certificate()">인증</button>
+            </div>
+            <p>
+
+            </p>
+
+    </div>
+</th:block>
+</html>

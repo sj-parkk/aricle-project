@@ -1,0 +1,93 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<head>
+    <!--https://stackoverflow.com/questions/36959139/uncaught-referenceerror-test-function-is-not-defined -->
+    <script th:inline="javascript">
+
+        function updateUserPasswordClick(){
+
+            let newPW = $('#new-password').val();
+            let confirmPW = $('#confirm-password').val();
+            const user_id = [[${session.loginMember.user_id}]]
+
+            let userinfo = {
+                "password" : newPW,
+                "user_id" : user_id
+            } ;
+            if(newPW === confirmPW){
+                $.ajax({
+                    type: "post",
+                    url : "http://localhost:8081/User/update",
+                    headers: {'Content-Type': 'application/json'},
+                    ///보낼 데이터를 JSON.stringify()로 감싸주어야 함
+                    data : JSON.stringify(userinfo),
+                    success : function (data){
+                        alert("비밀번호가 성공적으로 수정되었습니다.");
+                        location.reload();
+                    },
+                    error : function(e){
+                    }
+                })
+            }else{
+                alert("비밀번호가 일치하지 않습니다.")
+            }
+
+        }
+
+
+    </script>
+</head>
+
+<th:block layout:fragment="content">
+    <div class="container-fluid">
+        <div>회원정보</div>
+        <div>
+            ID : <em id="userid" type="text" th:text="${session.loginMember.user_id}"></em>
+        </div>
+        <div>
+            NAME : <em id="name" type="text" th:text="${session.loginMember.name}"></em>
+        </div>
+        <div>
+            EMAIL : <em id="email" type="text" th:text="${session.loginMember.email}"></em>
+        </div>
+
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-whatever="@mdo">비밀번호 수정</button>
+
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">비밀번호 수정</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="new-password" class="col-form-label">새 비밀번호</label>
+                                <input type="text" class="form-control" id="new-password">
+                            </div>
+                            <div class="form-group">
+                                <label for="confirm-password" class="col-form-label">비밀번호 확인</label>
+                                <textarea class="form-control" id="confirm-password"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="updateUserPassword" onclick="updateUserPasswordClick()">Send message</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</th:block>
+</html>

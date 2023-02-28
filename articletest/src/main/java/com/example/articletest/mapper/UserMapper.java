@@ -1,5 +1,7 @@
 package com.example.articletest.mapper;
 
+import com.example.articletest.domain.CertificationVO;
+import com.example.articletest.domain.LoginVO;
 import com.example.articletest.domain.UserInfo;
 import org.apache.ibatis.annotations.*;
 
@@ -27,10 +29,23 @@ public interface UserMapper {
     @ResultMap("CompanyMap")
     UserInfo giveId_getUserInfo(@Param("id")int id);
 
+
+    UserInfo getUserByIdAndPassword(LoginVO loginVO);
+
     @ResultMap("CompanyMap")
     UserInfo getUserById(String id);
 
     void updateAccount(UserInfo userInfo);
 
     void insertAccount(UserInfo userInfo);
+    @Insert("INSERT INTO authentic(user_id,authentic_msg) VALUES(#{user_id},#{cert})")
+    void insertAuthentic(CertificationVO vo);
+    @Update("UPDATE authentic SET msgcheck='3' where user_id=#{user_id} and authentic_msg=#{cert}")
+    void updateAuthentic(CertificationVO vo);
+
+    @Select("select * from user_info where email=#{email}")
+    UserInfo giveEmail_getUserInfo(String email);
+
+    @Select("select * from user_info where id=#{user_id} and email=#{email}")
+    UserInfo getUserByIdAndEmail(CertificationVO vo);
 }

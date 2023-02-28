@@ -4,6 +4,19 @@
 <mapper namespace="com.example.articletest.mapper.UserMapper">
 
     <!-- 로그인 -->
+    <select id="getUserByIdAndPassword" parameterType="LoginVO" resultType="UserInfo">
+        SELECT
+            id as user_id,
+            password,
+            name,
+            email,
+            role,
+            createAt
+        FROM user_info
+        WHERE id = #{user_id}
+          AND password = #{password};
+    </select>
+
     <select id="getUserById" parameterType="String" resultType="UserInfo">
         SELECT
             id as user_id,
@@ -19,10 +32,9 @@
     <!-- 회원정보 수정 -->
     <update id="updateAccount" parameterType="UserInfo">
         update user_info set
-                            id=#{id},
+                            id=#{user_id},
                             password = #{password},
-                            , name = #{name}
-                            , modifiedAt = sysdate()
+                            modifiedAt = sysdate()
                 where id = #{user_id}
 
     </update>

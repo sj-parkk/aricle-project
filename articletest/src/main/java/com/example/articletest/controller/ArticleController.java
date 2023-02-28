@@ -7,6 +7,7 @@ import com.example.articletest.service.PageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 
 import java.util.List;
 
@@ -19,10 +20,11 @@ public class ArticleController {
     @Autowired
     PageService pageService;
 
-    @PostMapping("")
-    public void makeArticle(@RequestBody ArticleInfo articleInfo){
-
+    @PostMapping("/insert")
+    void insertArticleComments(@RequestBody ArticleInfo articleInfo ){
+        articleMapper.makeArticle(articleInfo);
     }
+
     @GetMapping({"/list","list?pageGroup={pageGroup}"})
     public ModelAndView getArticles(@RequestParam int pageGroup){
         ModelAndView mav = new ModelAndView();
@@ -42,14 +44,5 @@ public class ArticleController {
         mav.addObject("ArticleDetail",articleMapper.getArticle(id));
         return mav;
     }
-
-    @PostMapping("/insert")
-    void insertArticleComments(@RequestBody ArticleInfo articleInfo ){
-        articleMapper.makeArticle(articleInfo);
-    }
-
-
-
-
 
 }

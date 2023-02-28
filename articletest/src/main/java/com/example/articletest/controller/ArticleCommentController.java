@@ -1,7 +1,7 @@
 package com.example.articletest.controller;
 
-import com.example.articletest.domain.ArticleCommentChildVO;
-import com.example.articletest.domain.ArticleCommentInfo;
+
+
 import com.example.articletest.domain.ArticleCommentVO;
 import com.example.articletest.mapper.ArticleCommentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class ArticleCommentController {
     ArticleCommentMapper articleCommentMapper;
 
     @GetMapping("/{id}")
-    public List<ArticleCommentInfo> getByArticleId(@PathVariable int id){return articleCommentMapper.getByArticleId(id);}
+    public List<ArticleCommentVO> getByArticleId(@PathVariable int id){return articleCommentMapper.getByArticleId(id);}
 
     @PostMapping("/insert")
     ModelAndView insertArticleComments(@RequestBody ArticleCommentVO articleCommentInfo ){
@@ -29,7 +29,7 @@ public class ArticleCommentController {
     }
 
     @PostMapping("/delete")
-    public void deleteByCommentId(@RequestBody ArticleCommentChildVO vo)
+    public void deleteByCommentId(@RequestBody ArticleCommentVO vo)
     {
         if(vo.getChild_id()==1){
             articleCommentMapper.deleteCommentId(vo);

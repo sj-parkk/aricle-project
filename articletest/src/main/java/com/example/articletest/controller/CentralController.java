@@ -1,18 +1,29 @@
 package com.example.articletest.controller;
 
+import com.example.articletest.domain.CertificationVO;
 import com.example.articletest.domain.RoleEnum;
 import com.example.articletest.domain.UserInfo;
 import com.example.articletest.mapper.UserMapper;
+
+import com.example.articletest.service.CertificationSerivce;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @Controller
 public class CentralController {
     @Autowired UserMapper mapper;
+
+
+
+
     @GetMapping("")
     public String home(Model model){
         model.addAttribute("data","comehere");
@@ -59,6 +70,10 @@ public class CentralController {
     public String alertForm(){
         return "alert";
     }
+
+
+
+
 
 
 }

@@ -3,9 +3,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.articletest.mapper.ArticleCommentMapper">
 
-    <insert id="insertArticleComment" parameterType="ArticleCommentInfo">
+    <insert id="insertArticleComment" parameterType="ArticleCommentVO">
         insert into articleComment (user_id,article_id,comment,createAt)
-        values(#{CommentInfo.user_id}
+        values(
+               #{CommentInfo.user_id}
         ,#{CommentInfo.article_id}
         ,#{CommentInfo.comment}
         ,sysdate())
@@ -13,7 +14,7 @@
 
     <insert id="insertChildComment" parameterType="ArticleCommentVO">
         insert into articleComment (id,child_id,user_id,article_id,comment,createAt)
-        values (#{ChildInfo.id},
+        values (#{ChildInfo.comment_id},
                 #{ChildInfo.child_id},
                 #{ChildInfo.user_id},
                 #{ChildInfo.article_id},
@@ -23,7 +24,7 @@
 
     <insert id="procedureTest" statementType="CALLABLE" parameterType="ArticleCommentVO">
         {call CommentInsertTest(
-                #{ChildInfo.id},
+                #{ChildInfo.comment_id},
                 #{ChildInfo.article_id},
                 #{ChildInfo.child_id},
                 #{ChildInfo.user_id},
@@ -32,11 +33,11 @@
         }
     </insert>
 
-    <delete id="deleteCommentId" parameterType="ArticleCommentChildVO">
+    <delete id="deleteCommentId" parameterType="ArticleCommentVO">
         delete from articleComment where id=#{CommentInfo.comment_id}
     </delete>
 
-    <delete id="deleteCommentIdAndChild" parameterType="ArticleCommentChildVO">
+    <delete id="deleteCommentIdAndChild" parameterType="ArticleCommentVO">
         delete from articleComment where id=#{CommentInfo.comment_id} and child_id=#{CommentInfo.child_id}
     </delete>
 </mapper>

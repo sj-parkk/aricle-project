@@ -1,5 +1,6 @@
 package com.example.articletest.controller;
 
+import com.example.articletest.config.SHA;
 import com.example.articletest.domain.LoginVO;
 import com.example.articletest.domain.UserInfo;
 import com.example.articletest.mapper.SessionContants;
@@ -21,7 +22,9 @@ public class LoginController {
     @PostMapping("/login")
     public String login(LoginVO loginVO, HttpServletRequest request, RedirectAttributes rttr){
         HttpSession session = request.getSession();
-        UserInfo userInfo = userMapper.getUserById(loginVO.getUserid());
+
+
+        UserInfo userInfo = userMapper.getUserByIdAndPassword(loginVO);
         if(userInfo==null){
             rttr.addFlashAttribute("loginFail","로그인 실패!");
             return "/LoginForm";

@@ -4,17 +4,24 @@
       layout:decorate="~{layouts/layout}">
 <head>
 <script>
+    let id_Check=false;
+    let email_Check=false;
+
     function SignUpClick(){
+
         var user_id = $("#userid").val();
         var password = $("#password").val();
         var email = $("#email").val();
         var name = $("#name").val();
+
         var userInfo = {
             "user_id":user_id,
-            "password":password,
             "name":name,
+            "password":password,
             "email":email
         }
+        if(!nullChecker(userInfo)) return false;
+
         $.ajax({
             type: "post",
             url : "http://localhost:8081/User/SignUp",
@@ -29,6 +36,54 @@
             }
         })
     }
+    function emailCert(){
+        var email = $("#email").val();
+        var arr = {"email":email};
+        if(!nullChecker(arr)) return false;
+        $.ajax({
+            type: "post",
+            url : "http://localhost:8081/Certification/certEmail",
+            headers: {'Content-Type': 'application/json'},
+            ///보낼 데이터를 JSON.stringify()로 감싸주어야 함
+            data : JSON.stringify(arr),
+            success : function (data){
+                let result = data.toLocaleString()
+                if(result ==="true"){
+                    alert("이메일 인증 번호가 발송되었습니다.");
+                }else{
+                    alert("사용중인 이메일입니다.");
+                }
+            },
+            error : function(e){
+            }
+        })
+    }
+
+    function idCheck(){
+        let id = $("#userid").val();
+        let idInfo = {
+            "user_id":id
+        }
+        if(!nullChecker(idInfo)) return false;
+        $.ajax({
+            type: "post",
+            url : "http://localhost:8081/Certification/idCheck",
+            headers: {'Content-Type': 'application/json'},
+            ///보낼 데이터를 JSON.stringify()로 감싸주어야 함
+            data : JSON.stringify(idInfo),
+            success : function (data){
+                let result = data.toLocaleString();
+                if(result ==="true"){
+                    alert("사용가능한 아이디입니다.");
+                }else{
+                    alert("사용중인 아이디입니다.");
+                }
+            },
+            error : function(e){
+            }
+        })
+
+    }
 </script>
 </head>
 
@@ -37,16 +92,22 @@
         <div>회원가입</div>
 
         <div>
-            ID : <input id="userid" type="text">
+            <label for="userid">ID</label>
+            <input id="userid" type="text">
+            <button onclick="idCheck()">중복확인</button>
         </div>
         <div>
-            NAME : <input id="name" type="text">
+            <label for="name">NAME</label>
+            <input id="name" type="text">
         </div>
         <div>
-            PASSWORD : <input id="password" type="password">
+            <label for="password">PW</label>
+            <input id="password" type="password">
         </div>
         <div>
-            EMAIL : <input id="email" type="text">
+            <label for="email">Email</label>
+            <input id="email" type="text">
+            <button onclick="emailCert()">인증</button>
         </div>
         <p>
             <button onclick="SignUpClick()">회원가입</button>

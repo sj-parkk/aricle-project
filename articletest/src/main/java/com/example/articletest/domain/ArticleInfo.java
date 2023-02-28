@@ -17,7 +17,7 @@ public class ArticleInfo {
     private int maxPageGroup;
     private String title;
     private String content;
-    private List<ArticleCommentInfo> articleCommentList;
+    private List<ArticleCommentVO> articleCommentList;
     private Date createAt;
     private Date modifiedAt;
 

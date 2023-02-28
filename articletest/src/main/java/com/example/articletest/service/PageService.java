@@ -3,6 +3,9 @@ package com.example.articletest.service;
 import com.example.articletest.domain.ArticleInfo;
 
 import com.example.articletest.domain.ArticlesPageVO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,10 +32,15 @@ public class PageService {
         }
 
         final int maxPageGroupNum = pageGroup;
-        List<ArticleInfo> filterList = articles.stream().filter(x->x.getPageGroup() == GetpageGroup).collect(Collectors.toList());
+        List<ArticleInfo> filterList = articles.stream().
+                filter(x->x.getPageGroup() == GetpageGroup).collect(Collectors.toList());
+
                 filterList.forEach(x->x.setMaxPageGroup(maxPageGroupNum));
 
 
         return filterList;
     }
+
+
+
 }
