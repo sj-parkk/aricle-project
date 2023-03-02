@@ -23,7 +23,7 @@ public class LoginController {
     public String login(LoginVO loginVO, HttpServletRequest request, RedirectAttributes rttr){
         HttpSession session = request.getSession();
 
-
+        loginVO.setPassword(SHA.getSHA512(loginVO.getPassword()));
         UserInfo userInfo = userMapper.getUserByIdAndPassword(loginVO);
         if(userInfo==null){
             rttr.addFlashAttribute("loginFail","로그인 실패!");

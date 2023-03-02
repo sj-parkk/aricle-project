@@ -6,18 +6,19 @@
         <header class="blog-header py-3">
             <div class="row flex-nowrap justify-content-between align-items-center">
                 <div class="col-4 pt-1" >
-                    <em th:text="${session.loginMember==null}?${''}:'안녕하세요' + ${session.loginMember.user_id} + '님'" >
+                    <em th:text="${session.loginMember==null}?${''}:'안녕하세요 ' + ${session.loginMember.name} + '님'" >
                     </em>
-                    <a th:if="${session.loginMember!= null}" class="p-2 text-muted" href="http://localhost:8081/User/MyInfo" >MyInfo</a>
-                    <div>
-                        <a class="text-muted" th:href="${session.loginMember==null}?${'/LoginForm'}:${'/LogOut'}" th:text="${session.loginMember==null}?${'로그인'}:${'로그아웃'}"></a>
-                    </div>
+
+
+
                 </div>
                 <div class="col-4 text-center">
                     <h1 class="blog-header-logo text-dark">승진's 게시판</h1>
                 </div>
                 <div class="col-4 text-center">
-                    <a class="btn btn-sm btn-outline-secondary" href="/SignUp">회원가입</a>
+                    <a class="btn btn-sm" th:href="${session.loginMember==null}?${'/LoginForm'}:${'/LogOut'}" th:text="${session.loginMember==null}?${'로그인'}:${'로그아웃'}"></a>
+                    <a class="btn btn-sm" th:href="${session.loginMember==null}?${'/SignUp'}:${''}" th:text="${session.loginMember==null}?${'회원가입'}:${''}"></a>
+                    <a th:if="${session.loginMember!= null}" class="btn btn-sm" href="http://localhost:8081/User/MyInfo" >MyInfo</a>
                 </div>
                 <div class="col-4 text-center">
                     <!--                <a class="text-muted" href="#">-->

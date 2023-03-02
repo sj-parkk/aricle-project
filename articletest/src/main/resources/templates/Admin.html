@@ -2,28 +2,63 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
+<head>
+    <script>
+        function deleteUser(id){
+            let idInfo={"id":id};
 
+            $.ajax({
+                type: "post",
+                url : "http://localhost:8081/User/deleteUser",
+                headers: {'Content-Type': 'application/json'},
+                ///보낼 데이터를 JSON.stringify()로 감싸주어야 함
+                data : JSON.stringify(idInfo),
+                success : function (data){
+                    let result = data.toLocaleString()
+                    if(result==="true"){
+                        alert("회원이 삭제되었습니다.");
+                        location.reload();
+                    }
+
+                },
+                error : function(e){
+                }
+            })
+
+
+        }
+    </script>
+</head>
 
 
 <th:block layout:fragment="content">
     <div class="container-fluid">
-        <div>유저정보 조회</div>
-        <table class="table table-striped">
-            <thead>
-            <th>아이디</th>
-            <th>이름</th>
-            <th>권한</th>
-            <th>생성일자</th>
-            </thead>
-            <tbody>
-            <tr th:each="a:${UserList}">
-                <td th:text="${a.user_id}"></td>
-                <td th:text="${a.name}"></td>
-                <td th:text="${a.role}"></td>
-                <td th:text="${a.createAt}"></td>
-            </tr>
-            </tbody>
-        </table>
+        <div id="centerContent">
+            <h1>유저정보 조회</h1>
+            <table class="table table-striped">
+                <thead>
+                <th>아이디</th>
+                <th>이름</th>
+                <th>권한</th>
+                <th>생성일자</th>
+                </thead>
+                <tbody>
+                <tr th:each="a:${UserList}">
+                    <td th:text="${a.user_id}"></td>
+                    <td th:text="${a.name}"></td>
+                    <td th:text="${a.role}"></td>
+                    <td th:text="${a.createAt}"></td>
+                    <td><button class="accordion-button"
+                                th:text="삭제"
+                                th:data-id="${a.user_id}"
+                                onclick="deleteUser(this.getAttribute('data-id'))">
+                    </button>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </th:block>
 </html>

@@ -22,3 +22,15 @@ body{
     left: 50%;
     top: 50%;
 }
+
+#centerContent{
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+#tableContent{
+    margin : auto;
+// 가로 넓이도 지정해주면 좋습니다.
+width : 80%;
+}

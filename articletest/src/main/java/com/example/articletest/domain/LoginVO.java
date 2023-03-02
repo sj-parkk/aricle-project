@@ -10,6 +10,6 @@ public class LoginVO {
     private String user_id;
     private String password;
     public void setPassword(String pw){
-        this.password = SHA.getSHA512(pw);
+        this.password = pw;
     }
 }

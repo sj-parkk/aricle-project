@@ -4,11 +4,16 @@
       layout:decorate="~{layouts/layout}">
 
 <head>
+    <style>
+        td {
+            text-align: center;
+        }
+    </style>
     <script>
         function ArticleButtonClick(){
             var title = $("#title").val();
-            var content = $("#content").val();
-            var articleInfo = {
+            var content = $("#contentText").val();
+            var boardInfo = {
                 "user_id":3,
                 "title":title,
                 "content":content
@@ -18,7 +23,7 @@
                 url : "http://localhost:8081/Article/insert",
                 headers: {'Content-Type': 'application/json'},
                 ///보낼 데이터를 JSON.stringify()로 감싸주어야 함
-                data : JSON.stringify(articleInfo),
+                data : JSON.stringify(boardInfo),
                 success : function (data){
                     alert("게시되었습니다");
                     location.reload();
@@ -33,16 +38,24 @@
 
 <th:block layout:fragment="content">
 
-        <div>게시글 작성</div>
-        <div>
-            제목 : <input id="title" type="text">
+        <div id="centerContent">
+            <h1>게시글 작성</h1>
+            <div style="margin-top:50px">
+                <table class="table table-striped-columns" id="tableContent" >
+                    <tr class="d-flex">
+                        <td class="col-2"><label for="title">제목</label></td>
+                        <td class="flex-fill"><input id="title" type="text" style="width:100%; border: 0;"></td>
+                        <td class="col-2"></td>
+                    </tr>
+                    <tr class="d-flex">
+                        <td class="col-2"><label for="contentText">내용</label></td>
+                        <td class="flex-fill"><textarea rows="6" id="contentText"style="width:100%; border: 0;"></textarea></td>
+                        <td class="col-2"></td>
+                    </tr>
+                </table>
+                <button onclick="ArticleButtonClick()">게시</button>
+            </div>
         </div>
-        <div>
-            내용 : <p><textarea id="content"></textarea></p>
-        </div>
-        <p>
-            <button onclick="ArticleButtonClick()">게시</button>
-        </p>
 
 
 </th:block>

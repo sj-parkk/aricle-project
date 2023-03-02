@@ -1,5 +1,6 @@
 package com.example.articletest.controller;
 
+import com.example.articletest.config.SHA;
 import com.example.articletest.domain.CertificationVO;
 import com.example.articletest.domain.UserInfo;
 import com.example.articletest.mapper.SessionContants;
@@ -57,7 +58,7 @@ public class CertificationController {
         if(takeSessionCertNum.equals(takeByUserCertNum)){
             mapper.updateAuthentic(vo);
             String newPW = CertificationSerivce.RandomPasswordGenerator();
-            UserInfo userInfo = new UserInfo(vo.getUser_id(),newPW);
+            UserInfo userInfo = new UserInfo(vo.getUser_id(), SHA.getSHA512(newPW));
             mapper.updateAccount(userInfo);
             certificationSerivce.sendNewPW(vo,newPW);
             return "true";

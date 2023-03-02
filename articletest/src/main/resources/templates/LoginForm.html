@@ -13,13 +13,13 @@
 
 <th:block layout:fragment="content">
     <div class="container-fluid">
-        <div class="border border-dark rounded-lg"></div>
+
         <div>
-            <div class="container-fluid" style="text-align: center">
+            <div class="container-fluid" id="centerContent" style="text-align: center">
 
 
-                <em>로그인</em>
-                <form method="post" action="/login">
+                <h1>로그인</h1>
+                <form method="post" action="/login" style="margin-top:50px">
                     <div>
                         <input id="username" name="user_id" placeholder="ID" type="text">
                     </div>
@@ -28,9 +28,10 @@
                     </div>
                     <p>
                         <button type="submit">로그인</button>
+                        <button type="button" onclick="findPassword()">비밀번호 찾기</button>
                     </p>
                 </form>
-                <button type="button" onclick="findPassword()">비밀번호 찾기</button>
+
 
 
             </div>

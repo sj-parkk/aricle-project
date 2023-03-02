@@ -5,6 +5,11 @@
 
 
 <head>
+    <style>
+        td {
+            text-align: center;
+        }
+    </style>
 <script th:inline="javascript">
     function CommentButtonClick(){
         const user = [[${session.loginMember.user_id}]];
@@ -85,10 +90,13 @@
 
     function childCommentVisibility(word){
         var a = document.getElementById(word);
-        if(a.style.display=''){
-            a.style.display = 'none'
+        var b = document.getElementById(word+"b");
+        if(a.style.display===''){
+            a.style.display = 'none';
+
         }else{
-            a.style.display = ''
+            a.style.display = '';
+            b.style.display = '';
         }
 
     }
@@ -97,14 +105,23 @@
 
 <th:block layout:fragment="content">
 <div class="container">
+    <div id="centerContent">
 
-    <div>게시글 상세 조회</div>
-    <div>
-    제목 <em class="title" th:text="${ArticleDetail.title}"></em>
+        <h1>게시글 상세 조회</h1>
+        <table class="table table-striped-columns" id="tableContent">
+            <tr class="d-flex">
+                <td class="col-2">제목</td>
+                <td class="flex-fill"><em class="title" th:text="${ArticleDetail.title}"></em></td>
+                <td class="col-2"></td>
+            </tr>
+            <tr class="d-flex">
+                <td class="col-2"><label for="articleContent">내용</label></td>
+                <td class="flex-fill"><textarea id="articleContent" th:value="${ArticleDetail.content}" th:text="${ArticleDetail.content}" rows="6" style="width:100%; border: 0;" readonly></textarea></td>
+                <td class="col-2"></td>
+            </tr>
+        </table>
     </div>
-    <div> <label for="articleContent">내용</label>
-        <p><textarea id="articleContent" th:value="${ArticleDetail.content}" th:text="${ArticleDetail.content}" readonly></textarea></p>
-    </div>
+
     <table class="table table-striped">
 
         <tbody>
@@ -125,23 +142,22 @@
                 <button th:text="답글작성"
                         th:attr="onclick=|childCommentVisibility('childComment${a.comment_id}')|">
                 </button>
-
-                <em>
-
-
-
-                    <em th:id="'childComment'+${a.comment_id}" style="display:none">
-                        <textarea th:id="'c'+${a.comment_id}"></textarea>
-                        <!--코멘트,자식값만 알고있으면된다.-->
-                        <button class="accordion-button"
-                                th:text="등록"
-                                th:data-id="${a.comment_id}"
-                                th:data-idd="${a.child_id}"
-                                onclick="ChildCommentClick(this.getAttribute('data-id'),this.getAttribute('data-idd'))">
-                        </button>
-                    </em>
-                </em>
             </td>
+
+            <td th:id="'childComment'+${a.comment_id}+'b'" style="display:none">
+
+                    <textarea th:id="'c'+${a.comment_id}" ></textarea>
+            </td>
+            <td th:id="'childComment'+${a.comment_id}" style="display:none">
+                    <!--코멘트,자식값만 알고있으면된다.-->
+                    <button class="accordion-button"
+                            th:text="등록"
+                            th:data-id="${a.comment_id}"
+                            th:data-idd="${a.child_id}"
+                            onclick="ChildCommentClick(this.getAttribute('data-id'),this.getAttribute('data-idd'))">
+                    </button>
+            </td>
+
 
 <!--            <em th:text="${a.createAt}"></em>-->
             <td>
@@ -165,7 +181,7 @@
                 <label for="description">댓글</label>
             </td>
             <td>
-                <textarea id="description" rows="3" placeholder="댓글을 입력해주세요" ></textarea>
+                <textarea id="description"  placeholder="댓글을 입력해주세요" rows="3" style="width:100%; border: 0;"></textarea>
             </td>
             <td>
                  <button  onclick="CommentButtonClick()" th:text="댓글등록" ></button>

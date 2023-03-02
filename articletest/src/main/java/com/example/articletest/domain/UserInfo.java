@@ -28,7 +28,7 @@ public class UserInfo {
 
     public UserInfo(String user_id, String password) {
         this.user_id = user_id;
-        this.password = SHA.getSHA512(password);
+        this.password = password;
     }
 
 

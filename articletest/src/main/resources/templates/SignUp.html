@@ -88,30 +88,33 @@
 </head>
 
 <th:block layout:fragment="content">
-    <div class="container-fluid">
-        <div>회원가입</div>
-
-        <div>
-            <label for="userid">ID</label>
-            <input id="userid" type="text">
-            <button onclick="idCheck()">중복확인</button>
-        </div>
-        <div>
-            <label for="name">NAME</label>
-            <input id="name" type="text">
-        </div>
-        <div>
-            <label for="password">PW</label>
-            <input id="password" type="password">
-        </div>
-        <div>
-            <label for="email">Email</label>
-            <input id="email" type="text">
-            <button onclick="emailCert()">인증</button>
-        </div>
-        <p>
+    <div class="container-fluid" id="centerContent">
+        <h1>회원가입</h1>
+        <div style="margin-top:50px">
+            <table class="table w-auto">
+                    <tr>
+                        <td><label for="userid">ID</label></td>
+                        <td><input id="userid" type="text"></td>
+                        <td><button onclick="idCheck()">중복확인</button></td>
+                    </tr>
+                    <tr>
+                        <td><label for="name">NAME</label></td>
+                        <td><input id="name" type="text"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><label for="password">PW</label></td>
+                        <td><input id="password" type="password"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><label for="email">Email</label></td>
+                        <td><input id="email" type="text"></td>
+                        <td><button onclick="emailCert()">인증</button></td>
+                    </tr>
+            </table>
             <button onclick="SignUpClick()">회원가입</button>
-        </p>
+        </div>
     </div>
 </th:block>
 </html>

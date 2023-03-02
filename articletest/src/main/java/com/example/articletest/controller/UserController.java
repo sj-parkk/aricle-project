@@ -38,7 +38,7 @@ public class UserController {
     @PostMapping("/SignUp")
     public void insertUserInfo(@RequestBody UserInfo userInfo) {
 
-        userInfo.setPassword(userInfo.getPassword());
+        userInfo.setPassword(SHA.getSHA512(userInfo.getPassword()));
         userInfo.setRole(userInfo.getRole());
         userMapper.insertAccount(userInfo);
     }

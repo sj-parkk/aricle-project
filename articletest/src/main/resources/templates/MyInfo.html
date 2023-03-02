@@ -43,51 +43,58 @@
 
 <th:block layout:fragment="content">
     <div class="container-fluid">
-        <div>회원정보</div>
-        <div>
-            ID : <em id="userid" type="text" th:text="${session.loginMember.user_id}"></em>
-        </div>
-        <div>
-            NAME : <em id="name" type="text" th:text="${session.loginMember.name}"></em>
-        </div>
-        <div>
-            EMAIL : <em id="email" type="text" th:text="${session.loginMember.email}"></em>
-        </div>
+        <div id="centerContent">
+            <h1>회원정보</h1>
 
+        <table class="table">
+            <tr>
+                <td>ID</td>
+                <td><em id="userid" type="text" th:text="${session.loginMember.user_id}"></em></td>
+            </tr>
+             <tr>
+                 <td>NAME</td>
+                 <td><em id="name" type="text" th:text="${session.loginMember.name}"></em></td>
+             </tr>
+            <tr>
+                <td>EMAIL</td>
+                <td><em id="email" type="text" th:text="${session.loginMember.email}"></em></td>
+            </tr>
 
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-whatever="@mdo">비밀번호 수정</button>
 
+        </table>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-whatever="@mdo">비밀번호 수정</button>
 
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">비밀번호 수정</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <label for="new-password" class="col-form-label">새 비밀번호</label>
-                                <input type="text" class="form-control" id="new-password">
-                            </div>
-                            <div class="form-group">
-                                <label for="confirm-password" class="col-form-label">비밀번호 확인</label>
-                                <textarea class="form-control" id="confirm-password"></textarea>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="updateUserPassword" onclick="updateUserPasswordClick()">Send message</button>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">비밀번호 수정</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="new-password" class="col-form-label">새 비밀번호</label>
+                                    <input type="text" class="form-control" id="new-password">
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirm-password" class="col-form-label">비밀번호 확인</label>
+                                    <textarea class="form-control" id="confirm-password"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" id="updateUserPassword" onclick="updateUserPasswordClick()">Send message</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
+        </div>
     </div>
 </th:block>
 </html>

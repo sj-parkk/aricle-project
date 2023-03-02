@@ -13,11 +13,11 @@
         <div id="content">
             <!-- 상단바-->
             <th:block th:replace="layouts/fragments/top :: topFragment"></th:block>
-
+            <div class="border border-dark rounded-lg"></div>
             <!-- 본문-->
             <th:block layout:fragment="content"></th:block>
         </div>
-
+        <div class="border border-dark rounded-lg"></div>
         <!-- 공통 하단-->
         <th:block th:replace="layouts/fragments/footer :: footerFragment"></th:block>
     </div>
