@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Arrays;
 import java.util.List;
 
+//WebMvcConfig에서 LoginIntercepter 객체를 전달하여 Session의 유무에 따라 true, false를 return 하는 역할
 public class LoginIntercepter implements HandlerInterceptor {
     public List loginEssential
             = Arrays.asList("/Admin/**","/ArticleWrite","/Article/**");

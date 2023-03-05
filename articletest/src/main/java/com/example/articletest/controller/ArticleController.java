@@ -25,15 +25,16 @@ public class ArticleController {
         articleMapper.makeArticle(articleInfo);
     }
 
-    @GetMapping({"/list","list?pageGroup={pageGroup}"})
-    public ModelAndView getArticles(@RequestParam int pageGroup){
+    @GetMapping({"/list","list?pageGroup={pageGroup},next={next}"})
+    public ModelAndView getArticles(@RequestParam int pageGroup, @RequestParam int next){
         ModelAndView mav = new ModelAndView();
-
-        List<ArticleInfo> PageArticles = pageService.pagingMethod(articleMapper.getArticles(),pageGroup);
+        List<ArticleInfo> articles = articleMapper.getArticles();
+        List<ArticleInfo> PageArticles = pageService.pagingMethod(articles,pageGroup,next);
+        int[] pageNum = pageService.returnPageNum();
 
         mav.setViewName("ArticleList");
         mav.addObject("PageArticle",PageArticles);
-
+        mav.addObject("pageNum",pageNum);
         return mav;
     }
 

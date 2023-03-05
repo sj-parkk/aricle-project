@@ -31,7 +31,7 @@ public class LoginController {
         }
         session.setAttribute(SessionContants.Login_Member,userInfo);
 
-        return "redirect:/Article/list?pageGroup=1";
+        return "redirect:/Article/list?pageGroup=1&next=1";
     }
 
     @GetMapping("/LogOut")

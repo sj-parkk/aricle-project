@@ -28,9 +28,16 @@
                 </tbody>
             </table>
             <div style="text-align:center">
-            <em th:each="num:${#numbers.sequence(1,PageArticle[0].maxPageGroup)}">
-                <a th:href="@{/Article/list(pageGroup=${num})}" th:text="${num}"></a>
-            </em>
+                <em th:each="num:${#numbers.sequence(pageNum[0],pageNum[1])}">
+                    <a  th:href="@{/Article/list(pageGroup=${num},next=${PageArticle[0].currentGroup})}" th:text="${num}"></a>
+                </em>
+
+                <div th:if="${PageArticle[0].prevPageExist}">
+                    <a th:href="@{/Article/list(pageGroup=${pageNum[0]-1},next=${PageArticle[0].prevGroup})}" th:text="${'prev'}"></a>
+                </div>
+                <div th:if="${PageArticle[0].nextPageExist}">
+                    <a th:href="@{/Article/list(pageGroup=${pageNum[1]+1},next=${PageArticle[0].currentGroup+1})}" th:text="${'next'}"></a>
+                </div>
             </div>
     </div>
 </div>

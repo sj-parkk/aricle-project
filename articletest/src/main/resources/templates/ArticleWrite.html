@@ -11,10 +11,11 @@
     </style>
     <script>
         function ArticleButtonClick(){
+            var user = [[${session.loginMember.user_id}]]
             var title = $("#title").val();
             var content = $("#contentText").val();
             var boardInfo = {
-                "user_id":3,
+                "user_id":user,
                 "title":title,
                 "content":content
             }
