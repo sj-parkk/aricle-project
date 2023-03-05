@@ -31,13 +31,13 @@ public class UserController {
 
     @PostMapping("/update")
     public void updateUserInfo(@RequestBody UserInfo userInfo){
-        userInfo.setPassword(userInfo.getPassword());
+        userInfo.setPassword(SHA.getSHA512(userInfo.getPassword()));
         userMapper.updateAccount(userInfo);
     }
 
     @PostMapping("/SignUp")
     public void insertUserInfo(@RequestBody UserInfo userInfo) {
-
+//        userMapper.selectAuthentic(userInfo);
         userInfo.setPassword(SHA.getSHA512(userInfo.getPassword()));
         userInfo.setRole(userInfo.getRole());
         userMapper.insertAccount(userInfo);
