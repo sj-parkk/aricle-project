@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -25,7 +26,7 @@ public class ArticleController {
         articleMapper.makeArticle(articleInfo);
     }
 
-    @GetMapping({"/list","list?pageGroup={pageGroup},next={next}"})
+    @GetMapping(value={"/list","list?pageGroup={pageGroup},next={next}"})
     public ModelAndView getArticles(@RequestParam int pageGroup, @RequestParam int next){
         ModelAndView mav = new ModelAndView();
         List<ArticleInfo> articles = articleMapper.getArticles();
@@ -45,5 +46,27 @@ public class ArticleController {
         mav.addObject("ArticleDetail",articleMapper.getArticle(id));
         return mav;
     }
+
+    @GetMapping({"update","update?id={id}"})
+    public ModelAndView getArticleUpdate(@RequestParam int id){
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("ArticleUpdate");
+        mav.addObject("ArticleDetail",articleMapper.getArticle(id));
+        return mav;
+    }
+    @PostMapping("/update")
+    public String updateArticle(@RequestBody ArticleInfo info){
+        articleMapper.updateArticle(info);
+        return "true";
+    }
+    @GetMapping({"/delete","delete?id={id}"})
+    public ModelAndView deleteArticle(@RequestParam int id){
+        articleMapper.deleteArticle(id);
+        
+        return getArticles(1,1);
+    }
+
+
+
 
 }

@@ -31,4 +31,9 @@ public interface ArticleMapper {
     @Select("select * from article where id=#{ArticleNum}")
     ArticleInfo getArticle(@Param("ArticleNum")int ArticleNum);
 
+    @Update("update article set title=#{Article.title},content=#{Article.content},modifiedAt=sysdate() where id=#{Article.article_id} ")
+    void updateArticle(@Param("Article")ArticleInfo articleInfo);
+
+    @Delete("delete from article where id=#{id}")
+    void deleteArticle(int id);
 }
