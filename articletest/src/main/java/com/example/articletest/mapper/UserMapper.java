@@ -43,6 +43,9 @@ public interface UserMapper {
     @Update("UPDATE authentic SET msgcheck='3' where user_id=#{user_id} and authentic_msg=#{cert}")
     void updateAuthentic(CertificationVO vo);
 
+    @Select("select * from authentic where user_id=#{user_id} and authentic_msg=#{authentic_msg} ")
+    CertificationVO selectAuthentic(UserInfo userInfo);
+
     @Select("select * from user_info where email=#{email}")
     UserInfo giveEmail_getUserInfo(String email);
 
