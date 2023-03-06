@@ -4,11 +4,9 @@
       layout:decorate="~{layouts/layout}">
 
 <head>
-
+    <!--https://stackoverflow.com/questions/36959139/uncaught-referenceerror-test-function-is-not-defined -->
     <script th:inline="javascript">
-        function closeModal(){
-            $('#myModal').modal('hide')
-        }
+
         function updateUserPasswordClick(){
 
             let newPW = $('#new-password').val();
@@ -65,14 +63,14 @@
         <!-- Button trigger modal -->
 
         </table>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" data-whatever="@mdo">비밀번호 수정</button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-whatever="@mdo">비밀번호 수정</button>
 
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal" aria-hidden="true">
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">비밀번호 수정</h5>
-                            <button type="button" class="close" onclick="closeModal()" data-dismiss="exampleModal" aria-label="Close">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -89,8 +87,8 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" onclick="closeModal()" data-dismiss="myModal">Close</button>
-                            <button type="button" class="btn btn-primary" id="updateUserPassword" onclick="updateUserPasswordClick()">비밀번호 수정</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" id="updateUserPassword" onclick="updateUserPasswordClick()">Send message</button>
                         </div>
                     </div>
                 </div>

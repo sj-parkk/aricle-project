@@ -16,7 +16,6 @@ public class UserInfo {
 
     private String email;
     private String role=RoleEnum.USER.name();
-//    private String authentic_num;
     private String createBy;
     private Date createAt;
 
