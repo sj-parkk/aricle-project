@@ -3,9 +3,10 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
 <head>
-<script>
+<script th:inline="javascript">
     let id_Check=false;
-    let email_Check=false;
+    let id_Check_com="";
+
 
     function SignUpClick(){
 
@@ -14,6 +15,11 @@
         var email = $("#email").val();
         var name = $("#name").val();
 
+
+        if(!id_Check || id_Check_com !== user_id){
+            alert("아이디 중복 확인을 완료해주세요")
+            return false;
+        }
         var userInfo = {
             "user_id":user_id,
             "name":name,
@@ -49,7 +55,7 @@
             success : function (data){
                 let result = data.toLocaleString()
                 if(result ==="true"){
-                    alert("이메일 인증 번호가 발송되었습니다.");
+                    alert("사용가능한 이메일입니다.");
                 }else{
                     alert("사용중인 이메일입니다.");
                 }
@@ -75,6 +81,8 @@
                 let result = data.toLocaleString();
                 if(result ==="true"){
                     alert("사용가능한 아이디입니다.");
+                    id_Check = true;
+                    id_Check_com = id;
                 }else{
                     alert("사용중인 아이디입니다.");
                 }
@@ -82,8 +90,8 @@
             error : function(e){
             }
         })
-
     }
+
 </script>
 </head>
 
@@ -91,7 +99,7 @@
     <div class="container-fluid" id="centerContent">
         <h1>회원가입</h1>
         <div style="margin-top:50px">
-            <table class="table w-auto">
+            <table class="table w-auto" id="tableContent">
                     <tr>
                         <td><label for="userid">ID</label></td>
                         <td><input id="userid" type="text"></td>
@@ -110,8 +118,9 @@
                     <tr>
                         <td><label for="email">Email</label></td>
                         <td><input id="email" type="text"></td>
-                        <td><button onclick="emailCert()">인증</button></td>
+                        <td><button onclick="emailCert()">중복확인</button></td>
                     </tr>
+
             </table>
             <button onclick="SignUpClick()">회원가입</button>
         </div>

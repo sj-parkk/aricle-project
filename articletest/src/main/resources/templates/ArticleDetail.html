@@ -108,6 +108,10 @@
     <div id="centerContent">
 
         <h1>게시글 상세 조회</h1>
+        <th:block th:if="${ArticleDetail.user_id == session.loginMember.user_id}">
+        <a th:href="@{/Article/update(id=${ArticleDetail.article_id})}">수정하기</a>
+        <a th:href="@{/Article/delete(id=${ArticleDetail.article_id})}">삭제하기</a>
+        </th:block>
         <table class="table table-striped-columns" id="tableContent">
             <tr class="d-flex">
                 <td class="col-2">제목</td>
@@ -116,7 +120,7 @@
             </tr>
             <tr class="d-flex">
                 <td class="col-2"><label for="articleContent">내용</label></td>
-                <td class="flex-fill"><textarea id="articleContent" th:value="${ArticleDetail.content}" th:text="${ArticleDetail.content}" rows="6" style="width:100%; border: 0;" readonly></textarea></td>
+                <td class="flex-fill"><textarea id="articleContent" th:text="${ArticleDetail.content}" rows="6" style="width:100%; border: 0;" readonly></textarea></td>
                 <td class="col-2"></td>
             </tr>
         </table>

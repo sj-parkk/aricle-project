@@ -78,8 +78,8 @@ public class CertificationController {
         if(!Objects.isNull(info)){
             return "false";
         };
-        String certNum = certificationSerivce.sendCertNewUserEmail(email);
-        session.setAttribute("certNum",certNum);
+//        String certNum = certificationSerivce.sendCertNewUserEmail(email);
+//        session.setAttribute("certNum",certNum);
         return "true";
     }
 
