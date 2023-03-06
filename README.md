@@ -1,2 +1,21 @@
-# aricle-project
-게시판 프로젝트 springboot 활용, mybatis, bootstrap
+# article-project
+* 스프링 부트 + thymleaf 게시판 사이트
+
+# 개발 기간
+* 2023.02.13 ~ 2023.03.06
+
+# 멤버 구성 
+* 1인 개발
+
+# 개발환경 
+* jdk 17 
+* IDE:inteliJ Ultimate 
+* Framework:springboot 3.0.2 
+* Database:mysql 8.0 
+* ORM:Mybatis
+
+# 주요 기능 
+* 회원가입, 아이디·이메일 중복확인, 비밀번호 암호화 로그인(로그인 성공시 세션에 정보 저장, 세션에 정보 저장되어야 게시글 관련 페이지 접속가능) 
+* 내정보, 비밀번호 수정 
+* 게시글 작성·수정·삭제 , 페이징 처리 댓글, 대댓글 작성·삭제(본인이 작성한 댓글만 삭제) 
+* 관리자 페이지(회원 삭제기능)
